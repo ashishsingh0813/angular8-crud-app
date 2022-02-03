@@ -1,0 +1,14 @@
+<!-- Side menu  -->
+<nav class="sidebar bar-block  animate-left card-2" style="width: 250px;" *ngIf="userService.isUserLoggedIn">
+    <!-- logo -->
+    <div style="border-bottom: 5px solid #ddd;"><img src="/favicon.ico" class="logo" routerLink="/"></div>
+    <!-- Sidebar Links -->
+    <a class="bar-item button" routerLinkActive="active-link" routerLink="/" [routerLinkActiveOptions]="{exact:
+        true}"> <i class="medium fa fa-user"></i>
+        Meeting List</a>
+    <a class="bar-item button" (click)="logOut()"><i class="medium fa fa-sign-out"></i> Logout</a>
+</nav>
+<div class="container" [style.marginLeft]="userService.isUserLoggedIn ? '250px' : 0">
+    <!--  load routes  -->
+    <router-outlet></router-outlet>
+</div>

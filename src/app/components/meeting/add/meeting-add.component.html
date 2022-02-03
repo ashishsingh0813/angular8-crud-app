@@ -1,0 +1,60 @@
+<div class="container">
+	<form class="container" #form="ngForm" (ngSubmit)="doRegister(form, email)">
+		<div class="panel round-small teal">
+			<h3><span *ngIf="id === undefined">New Meeting</span><span *ngIf="id != undefined">Meeting
+					Update</span> <a routerLink="/" class="button custom-button"><i
+						class="medium fa fa-chevron-left"></i> Back</a></h3>
+		</div>
+
+		<div class="form-group">
+			<label class="text-blue"><i class="medium custom-icon fa fa-user"></i><b>First Name</b></label>
+			<input class="input border" type="text" name="firstName" [(ngModel)]="meetingDetail.firstName"
+				#firstName="ngModel" required minlength="3" maxlength="50">
+			<div class="error" *ngIf="firstName.invalid && (firstName.dirty || firstName.touched || submitted)">
+				Please
+				enter 3 to 50
+				characters</div>
+		</div>
+
+		<div class="form-group">
+			<label class="text-blue"><i class="medium custom-icon fa fa-user"></i><b>Last Name</b></label>
+			<input class="input border" type="text" name="lastName" [(ngModel)]="meetingDetail.lastName">
+		</div>
+
+		<div class="form-group">
+			<label class="text-blue"><i class="medium custom-icon fa fa-envelope-o"></i><b>Email Address</b></label>
+			<input class="input border" type="email" name="email" pattern="\S+@\S+\.\S+"
+				[(ngModel)]="meetingDetail.email" #email="ngModel" required>
+			<div class="error" *ngIf="email.invalid && (email.dirty || email.touched || submitted)">Please enter valid
+				email address
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="text-blue"><i class="medium custom-icon fa fa-phone"></i><b>Phone</b></label>
+			<input class="input border" type="text" name="phone" ng2TelInput [(ngModel)]="meetingDetail.phone.number"
+				[ng2TelInputOptions]="{initialCountry: meetingDetail.phone.country, separateDialCode: true}"
+				#phone="ngModel" (countryChange)="onCountryChange($event)" pattern="^\d{5,15}$" required>
+			<div class="error" *ngIf="phone.invalid && (phone.dirty || phone.touched || submitted)">Please enter valid
+				phone number
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="text-blue"><i class="medium custom-icon fa fa-home"></i><b>Address</b></label>
+			<input class="input border" ngx-google-places-autocomplete [options]='options'
+				(onAddressChange)="AddressChange($event)" name="address" [(ngModel)]="meetingDetail.address"
+				#address="ngModel" />
+		</div>
+
+		<div class="form-group">
+			<label class="text-blue"><i class="medium custom-icon fa fa-calendar"></i><b>Meeting Time</b></label>
+			<input class="input border" type="datetime-local" name="meetingTime" [(ngModel)]="meetingDetail.meetingTime"
+				#meetingTime="ngModel" required>
+			<div class="error" *ngIf="meetingTime.invalid && (meetingTime.dirty || meetingTime.touched || submitted)">
+				Please enter valid meeting time
+			</div>
+		</div>
+		<button class="btn blue" type="submit"><span>Save</span><i class="medium fa fa-check"></i> </button>
+
+	</form>
+</div>

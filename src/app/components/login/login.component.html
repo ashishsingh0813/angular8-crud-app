@@ -1,0 +1,24 @@
+<div class="container align-center card login-card">
+	<form #form="ngForm" (ngSubmit)="doLogin()">
+		<div class="text-center">
+			<img src="/favicon.ico" class="logo">
+		</div>
+
+		<div class="form-group">
+			<label class="text-blue"><b>Username</b></label>
+			<input autocomplete="off" class="input border" type="text" name="username" [(ngModel)]="loginForm.userName"
+				required>
+		</div>
+
+		<div class="form-group">
+			<label class="text-blue"><b>Password</b></label>
+			<input class="input border" type="password" name="password" [(ngModel)]="loginForm.password" required>
+		</div>
+		<br>
+		<button class="btn blue" type="submit" [disabled]="!form.valid">Login <i class="medium fa fa-check"></i>
+		</button>
+	</form>
+	<div class="panel blue-gray">
+		<p>Credentials : admin &amp; admin</p>
+	</div>
+</div>

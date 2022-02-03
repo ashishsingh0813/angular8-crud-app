@@ -1,0 +1,45 @@
+<div class="container">
+	<div class="panel round-small teal">
+		<h3>Meeting List <button routerLink="/add" class="button custom-button"><i class="medium  fa fa-plus"></i>
+				Create meeting</button></h3>
+	</div>
+	<span><i class="medium fa fa-search"></i> Search : <input class="" type="text" [(ngModel)]='searchedText'
+			(input)="searchData($event)"></span>
+
+	<div class="panel table-container padding-16 card-2" *ngIf="meetingListData.length != 0; else noData">
+		<table class="table striped bordered">
+			<tr>
+				<th><i class="medium custom-icon fa fa-user"></i> First Name</th>
+				<th><i class="medium custom-icon fa fa-user"></i> Last Name</th>
+				<th><i class="medium custom-icon fa fa-envelope-o"></i> Email</th>
+				<th><i class="medium custom-icon fa fa-phone"></i> Phone</th>
+				<th><i class="medium custom-icon fa fa-home"></i> Address</th>
+				<th><i class="medium custom-icon fa fa-calendar"></i> Meeting Time</th>
+				<th></th>
+			</tr>
+			<tr
+				*ngFor="let meeting of meetingListData | paginate: { itemsPerPage: pageSize, currentPage: pageNumber }; index as i;">
+				<td class="pointer" [routerLink]="['detail', i]">{{meeting.firstName}} </td>
+				<td class="pointer" [routerLink]="['detail', i]">{{meeting.lastName}}</td>
+				<td class="pointer" [routerLink]="['detail', i]">{{meeting.email}}</td>
+				<td class="pointer" [routerLink]="['detail', i]">{{meeting.phone.dialCode}} {{meeting.phone.number}}
+				</td>
+				<td class="pointer" [routerLink]="['detail', i]">{{meeting.address}}</td>
+				<td class="pointer" [routerLink]="['detail', i]">{{meeting.meetingTime | date: 'MMM dd, y, h:mm a'}}
+				</td>
+				<td>
+					<a [routerLink]="['update', meeting.id]"><i class="medium custom-icon fa fa-pencil"></i></a>
+				</td>
+			</tr>
+		</table>
+		<div class="float-right">
+			<pagination-controls (pageChange)="pageNumber = $event"></pagination-controls>
+		</div>
+	</div>
+	<ng-template #noData>
+		<div class="panel green" *ngIf="meetingListData.length === 0">
+			<h3>Oh no</h3>
+			<p>No meetings found <span *ngIf="searchedText"> with search "{{searchedText}}"</span> </p>
+		</div>
+	</ng-template>
+</div>
