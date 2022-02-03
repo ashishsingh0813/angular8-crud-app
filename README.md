@@ -1,4 +1,5 @@
 # Angular Version 8 - CRUD Application
+# Node version: 10.16.0
 
 
 ## Angular features used
